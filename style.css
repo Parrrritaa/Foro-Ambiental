@@ -175,3 +175,90 @@ main p {
   font-size: 1.2em;
 }
 
+/* ===== Estilos para respuestas e hilos ===== */
+.responder-btn {
+  background-color: #2d572c;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9em;
+  margin-top: 6px;
+  transition: background-color 0.3s;
+}
+
+.responder-btn:hover {
+  background-color: #3c7a39;
+}
+
+/* Contenedor de las respuestas */
+.respuestas {
+  margin-left: 25px;
+  margin-top: 12px;
+  border-left: 2px solid #a5d6a7;
+  padding-left: 15px;
+}
+
+/* Estilo de cada respuesta individual */
+.respuesta {
+  background-color: #e9f5e9; /* verde muy suave */
+  border-radius: 10px;
+  padding: 10px 12px;
+  margin-top: 10px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  transition: transform 0.2s, background-color 0.3s;
+}
+
+.respuesta:hover {
+  background-color: #d6f0d6;
+  transform: translateX(4px);
+}
+
+.respuesta strong {
+  font-weight: 600;
+  display: block;
+  margin-bottom: 2px;
+}
+
+/* Formulario de respuesta */
+.formRespuesta {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 12px;
+  background-color: #f6fff6;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #b5deb5;
+}
+
+.formRespuesta input,
+.formRespuesta textarea {
+  width: 100%;
+  border: 1px solid #b0b0b0;
+  border-radius: 5px;
+  padding: 6px;
+  font-size: 0.9em;
+}
+
+.formRespuesta button {
+  align-self: flex-start;
+  background-color: #388e3c;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.formRespuesta button:hover {
+  background-color: #2e7d32;
+}
+
+/* ===== Color aleatorio aplicado al nombre del autor ===== */
+.opinion h3,
+.respuesta strong {
+  font-weight: 700;
+}
