@@ -262,3 +262,16 @@ main p {
 .respuesta strong {
   font-weight: 700;
 }
+
+.subtexto {
+  font-size: 1rem;
+  color: #2e7d32;
+  text-align: justify;
+  max-width: 800px;
+  margin: 0 auto 15px auto;
+  background-color: #f0f9f0;
+  padding: 10px 15px;
+  border-left: 4px solid #4caf50;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
