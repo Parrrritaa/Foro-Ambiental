@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Foro de Opiniones</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Foro de Opiniones</h1>
+    <nav>
+      <a href="index.html">Inicio</a>
+      <a href="quienes.html">Quiénes somos</a>
+      <a href="objetivo.html">Objetivo</a>
+      <a href="foro.html">Foro</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="formulario">
+      <h2>Comparte tu opinión</h2>
+      <form id="formOpiniones">
+        <input type="text" id="nombre" placeholder="Tu nombre (opcional)">
+        <label><input type="checkbox" id="anonimo"> Publicar como anónimo</label>
+        <textarea id="opinion" placeholder="Escribe tu opinión aquí..." required></textarea>
+        <button type="submit">Publicar</button>
+      </form>
+    </section>
+
+    <section id="listaOpiniones">
+      <h2>Opiniones publicadas</h2>
+      <div id="opiniones"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 Foro Ambiental - Universidad de Cundinamarca</p>
+  </footer>
+
+  <!-- 🔥 Script para conectar con Firebase y manejar el foro -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
+    import { getFirestore, collection, addDoc, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
+
+    // 🔧 Tu configuración de Firebase
+    const firebaseConfig = {
+      apiKey: "AIzaSyAa-ryPSIKuxNLIF9hW05brZbhGXhewirA",
+      authDomain: "foroambiental-9cd1d.firebaseapp.com",
+      projectId: "foroambiental-9cd1d",
+      storageBucket: "foroambiental-9cd1d.appspot.com",
+      messagingSenderId: "982048302221",
+      appId: "1:982048302221:web:a5c43c2c498dc44e306ec4",
+      measurementId: "G-LL5VWNJJFW"
+    };
+
+    // 🚀 Inicializar Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // 📩 Enviar nueva opinión
+    const form = document.getElementById("formOpiniones");
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const nombre = document.getElementById("nombre").value.trim();
+      const anonimo = document.getElementById("anonimo").checked;
+      const opinion = document.getElementById("opinion").value.trim();
+
+      if (opinion === "") return alert("Por favor escribe una opinión antes de publicar.");
+
+      const autor = anonimo || nombre === "" ? "Anónimo" : nombre;
+
+      try {
+        await addDoc(collection(db, "opiniones"), {
+          autor: autor,
+          opinion: opinion,
+          fecha: new Date().toISOString()
+        });
+        alert("Tu opinión fue publicada correctamente ✅");
+        form.reset();
+        mostrarOpiniones();
+      } catch (error) {
+        console.error("Error al guardar la opinión:", error);
+        alert("Hubo un error al publicar tu opinión 😢");
+      }
+    });
+
+    // 📜 Mostrar todas las opiniones
+    async function mostrarOpiniones() {
+      const contenedor = document.getElementById("opiniones");
+      contenedor.innerHTML = "<p>Cargando opiniones...</p>";
+
+      const consulta = query(collection(db, "opiniones"), orderBy("fecha", "desc"));
+      const snapshot = await getDocs(consulta);
+
+      contenedor.innerHTML = "";
+      snapshot.forEach((doc) => {
+        const data = doc.data();
+        const opinionDiv = document.createElement("div");
+        opinionDiv.classList.add("opinion");
+        opinionDiv.innerHTML = `
+          <h3>${data.autor}</h3>
+          <p>${data.opinion}</p>
+          <small>${new Date(data.fecha).toLocaleString()}</small>
+        `;
+        contenedor.appendChild(opinionDiv);
+      });
+
+      if (snapshot.empty) contenedor.innerHTML = "<p>Aún no hay opiniones publicadas.</p>";
+    }
+
+    // 🔄 Mostrar opiniones al cargar la página
+    mostrarOpiniones();
+  </script>
+</body>
+</html>
