@@ -275,3 +275,33 @@ main p {
   border-radius: 8px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
+
+.subtexto {
+  font-size: 1rem;
+  color: #2e7d32;
+  text-align: justify;
+  max-width: 800px;
+  margin: 0 auto 15px auto;
+  background-color: #f0f9f0;
+  padding: 10px 15px;
+  border-left: 4px solid #4caf50;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  line-height: 1.5;
+}
+
+/* 🔗 Estilo del enlace de la encuesta */
+.link-encuesta {
+  color: #1b5e20;
+  font-weight: bold;
+  text-decoration: none;
+  border-bottom: 2px solid #66bb6a;
+  transition: color 0.3s, border-color 0.3s;
+}
+
+.link-encuesta:hover {
+  color: #388e3c;
+  border-color: #2e7d32;
+}
+
+
